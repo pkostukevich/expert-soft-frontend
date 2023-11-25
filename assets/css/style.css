@@ -5,9 +5,9 @@ body {
 }
 
 .section__cards {
-    padding: 20px;
+    padding: 40px 0;
     margin: 0 auto;
-    width: 100%;
+    width: 94%;
     max-width: 280px;
     display: flex;
     flex-wrap: wrap;
@@ -121,6 +121,11 @@ body {
     gap: 7px;
     border: none;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.card__button:hover {
+    background-color: #426c8e;
 }
 
 .card__button .fa-bag-shopping {
@@ -146,6 +151,16 @@ body {
     width: 48px;
     box-sizing: border-box;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.card__actions__item:hover{
+    background-color: #cccccc;
+}
+
+.card__actions__item:active{
+    border: solid 1px #000000;
+    box-shadow: 0 0 3px black;
 }
 
 .card__actions__item .fa-regular {
@@ -172,7 +187,7 @@ body {
     }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1270px) {
     .section__cards {
         max-width: 1200px;
         gap: 26px;
