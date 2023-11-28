@@ -1,4 +1,4 @@
-body {
+*{
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', sans-serif;
@@ -70,26 +70,38 @@ body {
     gap: 5px;
     padding: 15px;
 }
+
 .card__rating {
-    position: relative;
-    white-space: nowrap;
-    margin: auto;
     width: fit-content;
+    margin: auto;
+    position: relative;
+    vertical-align: middle;
+    font-family: 'Font Awesome 6 Free', sans-serif;
+    display: inline-block;
+    color: #b9b9b9;
+    font-size: 14px;
 }
 
-.card__rating__cover{
-    background: white;
-    height: 100%;
-    overflow: hidden;
-    mix-blend-mode: color;
+.card__rating:before {
+    font-family: 'Font Awesome 6 Free',sans-serif;
+    font-weight: 900;
+    content: "\f005 \f005 \f005 \f005 \f005";
+}
+
+.card__rating .card__rating__stars {
     position: absolute;
+    left: 0;
     top: 0;
-    right: 0;
-    width: calc(100% - var(--rating) * 20%);
+    white-space: nowrap;
+    overflow: hidden;
+    color: #fab810;
+    width: calc(var(--rating)*20%);
 }
 
-.card__rating__star {
-    color: #fab810;
+.card__rating .card__rating__stars:before {
+    font-family: 'Font Awesome 6 Free', sans-serif;
+    font-weight: 900;
+    content: "\f005 \f005 \f005 \f005 \f005";
 }
 
 .card__category {
@@ -171,11 +183,11 @@ body {
     transition: all 0.2s;
 }
 
-.card__actions__item:hover{
+.card__actions__item:hover {
     background-color: #cccccc;
 }
 
-.card__actions__item:active{
+.card__actions__item:active {
     border: solid 1px #000000;
     box-shadow: 0 0 3px black;
 }
@@ -210,3 +222,5 @@ body {
         gap: 26px;
     }
 }
+
+
