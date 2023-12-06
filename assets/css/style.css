@@ -58,7 +58,7 @@
     /*margin: 15px auto;*/
     background-color: #fff;
     position: absolute;
-    bottom: -72px;
+    bottom: 0;
     width: 100%;
     transition: all 0.3s ease-in-out;
 }
@@ -72,36 +72,25 @@
 }
 
 .card__rating {
-    width: fit-content;
-    margin: auto;
     position: relative;
-    vertical-align: middle;
-    font-family: 'Font Awesome 6 Free', sans-serif;
-    display: inline-block;
-    color: #b9b9b9;
-    font-size: 14px;
+    white-space: nowrap;
+    margin: auto;
+    width: fit-content;
 }
 
-.card__rating:before {
-    font-family: 'Font Awesome 6 Free',sans-serif;
-    font-weight: 900;
-    content: "\f005 \f005 \f005 \f005 \f005";
+.card__rating__star {
+    color: #cccccc;
 }
 
-.card__rating .card__rating__stars {
+.card__rating__stars--active{
+    background: #fab810;
+    height: 100%;
+    overflow: hidden;
+    mix-blend-mode: color;
     position: absolute;
     left: 0;
     top: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    color: #fab810;
-    width: calc(var(--rating)*20%);
-}
-
-.card__rating .card__rating__stars:before {
-    font-family: 'Font Awesome 6 Free', sans-serif;
-    font-weight: 900;
-    content: "\f005 \f005 \f005 \f005 \f005";
+    width: calc(var(--rating) * 20%);
 }
 
 .card__category {
@@ -163,7 +152,7 @@
 
 .card__actions {
     position: absolute;
-    right: -50px;
+    right: 10px;
     top: 10px;
     display: flex;
     flex-direction: column;
@@ -171,7 +160,7 @@
     transition: all 0.3s ease-in-out;
 }
 
-.card__actions__item {
+.card__actions-item {
     text-align: center;
     padding: 16px 0;
     border-radius: 50%;
@@ -183,25 +172,22 @@
     transition: all 0.2s;
 }
 
-.card__actions__item:hover {
+.card__actions-item:hover {
     background-color: #cccccc;
 }
 
-.card__actions__item:active {
+.card__actions-item:active {
     border: solid 1px #000000;
     box-shadow: 0 0 3px black;
 }
 
-.card__actions__item .fa-regular {
+.card__actions-item--active{
+    box-shadow: 0 0 3px black;
+    background-color: #b9b9b9;
+}
+
+.card__actions-item .fa-regular {
     color: #000000;
-}
-
-.card:hover .card__bottom {
-    bottom: 0;
-}
-
-.card:hover .card__actions {
-    right: 10px;
 }
 
 @media screen and (min-width: 630px) {
@@ -213,6 +199,22 @@
 @media screen and (min-width: 960px) {
     .section__cards {
         max-width: 900px;
+    }
+
+    .card__bottom {
+        bottom: -72px;
+    }
+
+    .card:hover .card__bottom {
+        bottom: 0;
+    }
+
+    .card__actions {
+        right: -50px;
+    }
+
+    .card:hover .card__actions {
+        right: 10px;
     }
 }
 
