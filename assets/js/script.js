@@ -2,10 +2,10 @@ const filter = document.querySelector('.cards-filter');
 const cards = document.querySelectorAll('.card');
 const visibilityState = document.querySelector('#show');
 
-var extraCards = [];   // дополнительные карты, не подходящие под категорию
-var hiddenCards = [];
-var favouriteCards = [];
-var comparableCards = [];
+let extraCards = [];   // дополнительные карты, не подходящие под категорию
+let hiddenCards = [];
+let favouriteCards = [];
+let comparableCards = [];
 
 function checkVisibilityState(){       //проверка чекбокса
     if(visibilityState.checked) {
@@ -20,35 +20,36 @@ function checkVisibilityState(){       //проверка чекбокса
     }
 }
 
-visibilityState.addEventListener('change', function(e) {
-    checkVisibilityState()
-});
+function showFilteredCard(item){
+    item.classList.remove('extra');
+    extraCards.splice(extraCards.indexOf(item), 1);
+}
+
+function hideFilteredCard(item){
+    item.classList.add('extra');
+    extraCards.push(item);
+}
 
 function updateFilter(filter){         //вызывается при переходе по категориям и при нажатии иконки (удаление из категории)
     cards.forEach(function (item, i){
         switch(filter){
             case 'all':
-                item.classList.remove('extra');
-                extraCards.splice(extraCards.indexOf(item), 1);
+                showFilteredCard(item);
                 break;
             case 'favourites':
                 if (favouriteCards.includes(item)){
-                    item.classList.remove('extra');
-                    extraCards.splice(extraCards.indexOf(item), 1);
+                    showFilteredCard(item);
                 }
                 else{
-                    item.classList.add('extra');
-                    extraCards.push(item);
+                    hideFilteredCard(item);
                 }
                 break;
             case 'comparison':
                 if (comparableCards.includes(item)){
-                    item.classList.remove('extra');
-                    extraCards.splice(extraCards.indexOf(item), 1);
+                    showFilteredCard(item);
                 }
                 else{
-                    item.classList.add('extra');
-                    extraCards.push(item);
+                    hideFilteredCard(item);
                 }
                 break
         }
@@ -71,40 +72,45 @@ filter.addEventListener('click', function(e){    //переход по кате�
     }
 })
 
+visibilityState.addEventListener('change', function(e) {
+    checkVisibilityState()
+});
+
 cards.forEach(function (card){         //нажатие на иконку и добавление карты в категорию
     card.addEventListener('click', function(e) {
-        let target = e.target;
+        let targetClassList = e.target.classList;
         let card = e.currentTarget;
-        if (target.classList.contains('card__actions-item--hide')){
-            if (target.classList.contains('card__actions-item--hide--active')){
+        if (targetClassList.contains('card__actions-item--hide')){
+            if (targetClassList.contains('card__actions-item--hide--active')){
                 hiddenCards.splice(hiddenCards.indexOf(card), 1);
             }
             else{
                 hiddenCards.push(card);
             }
-            target.classList.toggle('card__actions-item--hide--active');
+            targetClassList.toggle('card__actions-item--hide--active');
             card.classList.toggle('card--hidden');
             checkVisibilityState();
         }
-        else if (target.classList.contains('card__actions-item--like')) {
-            if (target.classList.contains('card__actions-item--like--active')) {
+        else if (targetClassList.contains('card__actions-item--like')) {
+            if (targetClassList.contains('card__actions-item--like--active')) {
                 favouriteCards.splice(favouriteCards.indexOf(card), 1);
             } else {
                 favouriteCards.push(card);
             }
-            target.classList.toggle('card__actions-item--like--active')
+            targetClassList.toggle('card__actions-item--like--active')
         }
-        else if (target.classList.contains('card__actions-item--compare')) {
-            if (target.classList.contains('card__actions-item--compare--active')) {
+        else if (targetClassList.contains('card__actions-item--compare')) {
+            if (targetClassList.contains('card__actions-item--compare--active')) {
                 comparableCards.splice(comparableCards.indexOf(card), 1);
             } else {
                 comparableCards.push(card);
             }
-            target.classList.toggle('card__actions-item--compare--active')
+            targetClassList.toggle('card__actions-item--compare--active')
         }
         let filter = document.querySelector('.filter__button--selected').dataset.filter;
         updateFilter(filter);
     })
 })
+
 
 
