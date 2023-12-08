@@ -6,17 +6,10 @@ let hiddenCards = [];
 let favouriteCards = [];
 let comparableCards = [];
 
-function checkVisibilityState(){       //проверка чекбокса
-    if(visibilityState.checked) {
-        hiddenCards.forEach(function (card) {
-           card.classList.remove('card--hidden');
-        });
-    }
-    else {
-        hiddenCards.forEach(function (card) {
-            card.classList.add('card--hidden');
-        });
-    }
+function checkVisibilityState(){          //проверка чекбокса
+    hiddenCards.forEach(function (card) {
+        card.classList.toggle('card--hidden', !visibilityState.checked);
+    });
 }
 
 function updateFilter(filter){         //вызывается при переходе по категориям и при нажатии иконки (удаление из категории)
@@ -69,14 +62,15 @@ cards.forEach(function (card){         //нажатие на иконку и д�
         let iconClassList = e.target.classList;
         let card = e.currentTarget;
         let cardClassList = card.classList;
+
         if (iconClassList.contains('card__actions-item--hide')){
-            if (cardClassList.contains('card--transparent')){
+            if (cardClassList.contains('card--semitransparent')){
                 hiddenCards.splice(hiddenCards.indexOf(card), 1);
             }
             else{
                 hiddenCards.push(card);
             }
-            cardClassList.toggle('card--transparent');
+            cardClassList.toggle('card--semitransparent');
             checkVisibilityState();
         }
         else if (iconClassList.contains('card__actions-item--like')) {
