@@ -2,7 +2,6 @@ const filter = document.querySelector('.cards-filter');
 const cards = document.querySelectorAll('.card');
 const visibilityState = document.querySelector('#show');
 
-let extraCards = [];   // дополнительные карты, не подходящие под категорию
 let hiddenCards = [];
 let favouriteCards = [];
 let comparableCards = [];
@@ -10,46 +9,36 @@ let comparableCards = [];
 function checkVisibilityState(){       //проверка чекбокса
     if(visibilityState.checked) {
         hiddenCards.forEach(function (card) {
-            card.classList.remove('hidden');
+           card.classList.remove('card--hidden');
         });
     }
     else {
         hiddenCards.forEach(function (card) {
-            card.classList.add('hidden');
+            card.classList.add('card--hidden');
         });
     }
 }
 
-function showFilteredCard(item){
-    item.classList.remove('extra');
-    extraCards.splice(extraCards.indexOf(item), 1);
-}
-
-function hideFilteredCard(item){
-    item.classList.add('extra');
-    extraCards.push(item);
-}
-
 function updateFilter(filter){         //вызывается при переходе по категориям и при нажатии иконки (удаление из категории)
-    cards.forEach(function (item, i){
+    cards.forEach(function (item){
         switch(filter){
             case 'all':
-                showFilteredCard(item);
+                item.classList.remove('extra');
                 break;
             case 'favourites':
                 if (favouriteCards.includes(item)){
-                    showFilteredCard(item);
+                    item.classList.remove('extra');
                 }
                 else{
-                    hideFilteredCard(item);
+                    item.classList.add('extra');
                 }
                 break;
             case 'comparison':
                 if (comparableCards.includes(item)){
-                    showFilteredCard(item);
+                    item.classList.remove('extra');
                 }
                 else{
-                    hideFilteredCard(item);
+                    item.classList.add('extra');
                 }
                 break
         }
@@ -57,7 +46,6 @@ function updateFilter(filter){         //вызывается при перех�
 }
 
 filter.addEventListener('click', function(e){    //переход по категориям
-    extraCards = [];
     let target = e.target;
     if(target.classList.contains('filter__button') && !target.classList.contains('filter__button--selected')){
         document.querySelectorAll(('.filter__button')).forEach(function (button){
@@ -72,40 +60,40 @@ filter.addEventListener('click', function(e){    //переход по кате�
     }
 })
 
-visibilityState.addEventListener('change', function(e) {
+visibilityState.addEventListener('change', function() {
     checkVisibilityState()
 });
 
 cards.forEach(function (card){         //нажатие на иконку и добавление карты в категорию
     card.addEventListener('click', function(e) {
-        let targetClassList = e.target.classList;
+        let iconClassList = e.target.classList;
         let card = e.currentTarget;
-        if (targetClassList.contains('card__actions-item--hide')){
-            if (targetClassList.contains('card__actions-item--hide--active')){
+        let cardClassList = card.classList;
+        if (iconClassList.contains('card__actions-item--hide')){
+            if (cardClassList.contains('card--transparent')){
                 hiddenCards.splice(hiddenCards.indexOf(card), 1);
             }
             else{
                 hiddenCards.push(card);
             }
-            targetClassList.toggle('card__actions-item--hide--active');
-            card.classList.toggle('card--hidden');
+            cardClassList.toggle('card--transparent');
             checkVisibilityState();
         }
-        else if (targetClassList.contains('card__actions-item--like')) {
-            if (targetClassList.contains('card__actions-item--like--active')) {
+        else if (iconClassList.contains('card__actions-item--like')) {
+            if (cardClassList.contains('card--favourite')) {
                 favouriteCards.splice(favouriteCards.indexOf(card), 1);
             } else {
                 favouriteCards.push(card);
             }
-            targetClassList.toggle('card__actions-item--like--active')
+            cardClassList.toggle('card--favourite')
         }
-        else if (targetClassList.contains('card__actions-item--compare')) {
-            if (targetClassList.contains('card__actions-item--compare--active')) {
+        else if (iconClassList.contains('card__actions-item--compare')) {
+            if (cardClassList.contains('card--comparable')) {
                 comparableCards.splice(comparableCards.indexOf(card), 1);
             } else {
                 comparableCards.push(card);
             }
-            targetClassList.toggle('card__actions-item--compare--active')
+            cardClassList.toggle('card--comparable');
         }
         let filter = document.querySelector('.filter__button--selected').dataset.filter;
         updateFilter(filter);

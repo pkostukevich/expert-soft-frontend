@@ -75,7 +75,7 @@
     overflow: hidden;
 }
 
-.card.card--hidden{
+.card.card--transparent{
     opacity: .5;
 }
 
@@ -231,7 +231,7 @@
     box-shadow: 0 0 3px black;
 }
 
-.card__actions-item--hide--active, .card__actions-item--like--active, .card__actions-item--compare--active{
+.card--transparent .card__actions-item--hide, .card--favourite .card__actions-item--like,.card--comparable .card__actions-item--compare{
     border: solid 1px #000;
     background-color: #d6d5d5;
 }
@@ -244,7 +244,7 @@
     content: "\f06e";   /*f070*/
 }
 
-.card__actions-item--hide--active:before{
+.card--transparent .card__actions-item--hide:before{
     content: "\f070";
 }
 
@@ -252,7 +252,7 @@
     content: "\f004";
 }
 
-.card__actions-item--like--active:before{
+.card--favourite .card__actions-item--like:before{
     content: "\f004";
     font-weight: 900;
 }
@@ -262,23 +262,23 @@
     font-weight: 900;
 }
 
-.card__actions-item--compare--active:before{
+.card--comparable .card__actions-item--compare:before{
     content: "\f516";
     font-weight: 900;
 }
 
-.card--hidden.hidden, .extra{
+.card--hidden, .extra{
     display: none;
 }
 
 
-@media screen and (min-width: 630px) {
+@media screen and (min-width: 645px) {
     .section__cards {
         max-width: 590px;
     }
 }
 
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 980px) {
     .section__cards {
         max-width: 900px;
     }
