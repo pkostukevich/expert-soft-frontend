@@ -19,20 +19,10 @@ function updateFilter(filter){         //вызывается при перех�
                 item.classList.remove('extra');
                 break;
             case 'favourites':
-                if (favouriteCards.includes(item)){
-                    item.classList.remove('extra');
-                }
-                else{
-                    item.classList.add('extra');
-                }
+                item.classList.toggle('extra', !favouriteCards.includes(item));
                 break;
             case 'comparison':
-                if (comparableCards.includes(item)){
-                    item.classList.remove('extra');
-                }
-                else{
-                    item.classList.add('extra');
-                }
+                item.classList.toggle('extra', !comparableCards.includes(item));
                 break
         }
     })
@@ -42,12 +32,7 @@ filter.addEventListener('click', function(e){    //переход по кате�
     let target = e.target;
     if(target.classList.contains('filter__button') && !target.classList.contains('filter__button--selected')){
         document.querySelectorAll(('.filter__button')).forEach(function (button){
-            if (button.dataset.filter === target.dataset.filter) {
-                button.classList.add('filter__button--selected');
-            }
-            else{
-                button.classList.remove('filter__button--selected');
-            }
+            button.classList.toggle('filter__button--selected', button.dataset.filter === target.dataset.filter);
         });
         updateFilter(target.dataset.filter);
     }
