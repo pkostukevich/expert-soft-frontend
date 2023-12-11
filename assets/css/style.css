@@ -106,7 +106,6 @@
 }
 
 .card__bottom {
-    /*margin: 15px auto;*/
     background-color: #fff;
     position: absolute;
     bottom: 0;
@@ -241,7 +240,7 @@
 }
 
 .card__actions-item--hide:before{
-    content: "\f06e";   /*f070*/
+    content: "\f06e";
 }
 
 .card--semitransparent .card__actions-item--hide:before{
@@ -258,7 +257,7 @@
 }
 
 .card__actions-item--compare:before{
-    content: "\f24e";   /*f516*/
+    content: "\f24e";
     font-weight: 900;
 }
 
