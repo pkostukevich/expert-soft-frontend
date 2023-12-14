@@ -8,12 +8,16 @@ function checkVisibilityState() {          // проверка чекбокса 
     hiddenCards.forEach(function (id) {
         document.getElementById(id).classList.toggle('card--hidden', !visibilityState.checked);
     });
+    localStorage['visibilityState'] = JSON.stringify(visibilityState.checked);
 }
 
 function displayFromStorage() {              // загрузка из localStorage, отображение принадлежности карт к категориям
+    const checkboxValue = localStorage.getItem('visibilityState');
+    visibilityState.checked = checkboxValue === null ? true : !!JSON.parse(checkboxValue);
     hiddenCards = JSON.parse(localStorage.getItem('hiddenCards')) || [];
     favouriteCards = JSON.parse(localStorage.getItem('favouriteCards')) || [];
     comparableCards = JSON.parse(localStorage.getItem('comparableCards')) || [];
+    checkVisibilityState();
     cards.forEach(function (card) {
         const cardId = card.id;
         let cardClassList = card.classList;
@@ -21,7 +25,6 @@ function displayFromStorage() {              // загрузка из localStora
         cardClassList.toggle('card--favourite', favouriteCards.includes(cardId));
         cardClassList.toggle('card--comparable', comparableCards.includes(cardId));
     });
-    checkVisibilityState();
 }
 
 function updateFilter(filter) {         // обновление отображаемых карточек в соответствии с выбранной категорией
